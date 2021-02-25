@@ -53,25 +53,40 @@ async def on_message(message):
     if any(word in msg for word in sad_words):
       await message.channel.send(random.choice(options))
 
-  if msg.startswith("$new"):
-    encouraging_message=msg.split("$new ",1)[1]
+  if msg.startswith("vpaNew"):
+    encouraging_message=msg.split("vpaNew ",1)[1]
     update_encouragements(encouraging_message)
     await message.channel.send("New encouraging message added.")
-  if msg.startswith("$del"):
+  if msg.startswith("vpaDel"):
     encouragements=[]
     if "encouragements" in db.keys():
-      index=int(msg.split("$del",1)[1])
+      index=int(msg.split("vpaDel",1)[1])
       delete_encouragements(index)
       encouragements=db["encouragements"]
     await message.channel.send(encouragements)
 
-  if msg.startswith("$list"):
+  if msg.startswith("vpaList"):
     encouragements=[]
     if "encouragements" in db.keys():
       encouragements=db["encouragements"]
     await message.channel.send(encouragements)
-  if msg.startswith("$responding"):
-    value=msg.split("$responding ",1)[1]
+  if msg.startswith("vpaHelp"):
+    await message.channel.send("Available Commands:
+    vpaInspire::
+    Get a random inspiring quote
+    vpaNew::
+    Add your own cuustom encouraging message.
+    ex: vpaNew You are amazing.
+    vpaDel::
+    Delete your custom encouraging message.
+    ex: vpaDel 1
+    vpaList::
+    Lists all your added custom encouraging messages.
+    vpaResponding::
+    Turns off/on bot's response to sad messages on the server
+    ex: vpaResponding false")
+  if msg.startswith("vpaResponding"):
+    value=msg.split("vpaResponding ",1)[1]
 
     if value.lower()=="true":
       db["responding"]=True
