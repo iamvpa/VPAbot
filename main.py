@@ -72,32 +72,9 @@ async def on_message(message):
       encouragements=db["encouragements"]
     await message.channel.send(encouragements)
   if msg.startswith("vpaHelp"):
-    await message.channel.send("Available Commands")
-    await message.channel.send("vpaInspire::")
-    await message.channel.send("Get a random inspiring quote")
-    await message.channel.send("vpaNew::")
-    await message.channel.send("Add your own custom encouraging message.")
-    await message.channel.send("ex: vpaNew You are amazing.")
-    await message.channel.send("vpaDel::")
-    await message.channel.send("Delete your custom encouraging message.")
-    await message.channel.send("ex: vpaDel 1")
-    await message.channel.send("vpaList::")
-    await message.channel.send("Lists all your added custom encouraging messages.")
-    await message.channel.send("vpaResponding::")
-    await message.channel.send("Turns off/on bot's response to sad messages on the server")
-    await message.channel.send("ex: vpaResponding false")
+    await message.channel.send("Available Commands \nvpaInspire::\nGet a random inspiring quote\nvpaNew::\nAdd your own custom encouraging message.\nex: vpaNew You are amazing.\nvpaDel::\nDelete your custom encouraging message.\nex: vpaDel 1\nvpaList::\nLists all your added custom encouraging messages.\nvpaResponding::\nTurns off/on bot's response to sad messages on the server\nex: vpaResponding false")
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        
     
   if msg.startswith("vpaResponding"):
     value=msg.split("vpaResponding ",1)[1]
