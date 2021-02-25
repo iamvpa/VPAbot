@@ -10,6 +10,9 @@ client=discord.Client()
 
 sad_words = ["sad","depressed","unhappy","angry","miserable","depressing","nigga","fuck"]
 starter_encouragements=["Cheer up!","Hang in there","Chill","Life is beautiful","Hola"]
+
+if "responding" not in db.keys():
+  db["responding"]= True
 def get_quote():
   response=requests.get("https://zenquotes.io/api/random")
   json_data=json.loads(response.text)
@@ -42,13 +45,13 @@ async def on_message(message):
   if message.content.startswith('vpaInspire'):
     quote=get_quote()
     await message.channel.send(quote)
+  if db["responding"]:
+    options=starter_encouragements
+    if "encouragements" in db.keys():
+      options =options +db["encouragements"]
 
-  options=starter_encouragements
-  if "encouragements" in db.keys():
-    options =options +db["encouragements"]
-
-  if any(word in msg for word in sad_words):
-    await message.channel.send(random.choice(options))
+    if any(word in msg for word in sad_words):
+      await message.channel.send(random.choice(options))
 
   if msg.startswith("$new"):
     encouraging_message=msg.split("$new ",1)[1]
@@ -61,4 +64,19 @@ async def on_message(message):
       delete_encouragements(index)
       encouragements=db["encouragements"]
     await message.channel.send(encouragements)
+
+  if msg.startswith("$list"):
+    encouragements=[]
+    if "encouragements" in db.keys():
+      encouragements=db["encouragements"]
+    await message.channel.send(encouragements)
+  if msg.startswith("$responding"):
+    value=msg.split("$responding ",1)[1]
+
+    if value.lower()=="true":
+      db["responding"]=True
+      await message.channel.send("Responding is on.")
+    else:
+      db["responding"]=False
+      await message.channel.send("Responding is off.")
 client.run(os.getenv('TOKEN'))
