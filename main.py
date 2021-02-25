@@ -3,19 +3,32 @@ import os
 import requests
 import json
 import random
+from replit import db
 
 client=discord.Client()
 
 
-sad_words = ["sad","depressed","unhappy","angry","miserable","depressing","nigga"]
-starter_encouragements=["Cheer up!","Hang in there","Chill","Life is short","Hola"]
+sad_words = ["sad","depressed","unhappy","angry","miserable","depressing","nigga","fuck"]
+starter_encouragements=["Cheer up!","Hang in there","Chill","Life is beautiful","Hola"]
 def get_quote():
   response=requests.get("https://zenquotes.io/api/random")
   json_data=json.loads(response.text)
   quote=json_data[0]['q'] + " -" + json_data[0]['a']
   return(quote)
 
+def update_encouragements(encouraging_message):
+  if "encouragements" in db.keys(): 
+    encouragements=db["encouragements"]
+    encouragements.append(encouraging_message)
+    db["encouragements"]=encouragements
+  else:
+    db["encouragements"]=[encouraging_message]
 
+def delete_encouragements(index):
+  encouragements=db["encouragements"]
+  if len(encouragements)>index:
+    del encouragements[index] 
+    db["encouragements"]=encouragements
 @client.event
 async def on_ready():
   print('We have logged in as {0.user}'
