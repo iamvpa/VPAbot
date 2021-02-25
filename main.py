@@ -43,6 +43,22 @@ async def on_message(message):
     quote=get_quote()
     await message.channel.send(quote)
 
+  options=starter_encouragements
+  if "encouragements" in db.keys():
+    options =options +db["encouragements"]
+
   if any(word in msg for word in sad_words):
-    await message.channel.send(random.choice(starter_encouragements))
+    await message.channel.send(random.choice(options))
+
+  if msg.startswith("$new"):
+    encouraging_message=msg.split("$new ",1)[1]
+    update_encouragements(encouraging_message)
+    await message.channel.send("New encouraging message added.")
+  if msg.startswith("$del"):
+    encouragements=[]
+    if "encouragements" in db.keys():
+      index=int(msg.split("$del",1)[1])
+      delete_encouragements(index)
+      encouragements=db["encouragements"]
+    await message.channel.send(encouragements)
 client.run(os.getenv('TOKEN'))
