@@ -23,7 +23,7 @@ async def on_message(message):
     return
 
   if message.content.startswith('vpaInspire'):
-    quote=get_quote
+    quote=get_quote()
     await message.channel.send(quote)
 
 client.run(os.getenv('TOKEN'))
