@@ -98,13 +98,18 @@ async def on_message(message):
       await message.channel.send("Responding is off.")
 players={}
 client1=commands.Bot(command_prefix='?')
-status=['Music!','PUBG','CSGO']
+status=['Music!','PUBG!','CSGO!','Apex Legends!','Fortnite!','Minecraft!','nothing|vpaHelp ']
 
   
 @tasks.loop(seconds=20)
 async def change_status():
   await client.change_presence(activity=discord.Game(choice(status)))
-
+@client.event
+async def on_member_join(member):
+    await member.create_dm()
+    await member.dm_channel.send(
+        f'Hi {member.name}, welcome to Overklock NITuk LTD. server!'
+    )
 
 
 keep_alive()
