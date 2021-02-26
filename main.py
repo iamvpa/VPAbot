@@ -2,10 +2,11 @@ import discord
 import os
 import requests
 import json
-import random
+from random import choice
 from replit import db
 from keep_alive import keep_alive
-from discord.ext import commands
+from discord.ext import commands,tasks
+import youtube_dl
 
 client=discord.Client()
 
@@ -36,6 +37,7 @@ def delete_encouragements(index):
     db["encouragements"]=encouragements
 @client.event
 async def on_ready():
+  change_status.start()
   print('We have logged in as {0.user}'
   .format(client))
 
@@ -94,6 +96,16 @@ async def on_message(message):
     else:
       db["responding"]=False
       await message.channel.send("Responding is off.")
+players={}
+client1=commands.Bot(command_prefix='?')
+status=['Music!','PUBG','CSGO']
+
+  
+@tasks.loop(seconds=20)
+async def change_status():
+  await client.change_presence(activity=discord.Game(choice(status)))
+
+
 
 keep_alive()
 client.run(os.getenv('TOKEN'))
