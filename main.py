@@ -3,6 +3,7 @@ import os
 import requests
 import json
 from random import choice
+import random
 from replit import db
 from keep_alive import keep_alive
 from discord.ext import commands,tasks
