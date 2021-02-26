@@ -5,6 +5,7 @@ import json
 import random
 from replit import db
 from keep_alive import keep_alive
+from discord.ext import commands
 
 client=discord.Client()
 
@@ -72,7 +73,15 @@ async def on_message(message):
       encouragements=db["encouragements"]
     await message.channel.send(encouragements)
   if msg.startswith("vpaHelp"):
-    await message.channel.send("Available Commands \nvpaInspire::\nGet a random inspiring quote\nvpaNew::\nAdd your own custom encouraging message.\nex: vpaNew You are amazing.\nvpaDel::\nDelete your custom encouraging message.\nex: vpaDel 1\nvpaList::\nLists all your added custom encouraging messages.\nvpaResponding::\nTurns off/on bot's response to sad messages on the server\nex: vpaResponding false")
+    embed=discord.Embed(colour=discord.Colour.orange())
+    embed.set_author(name='Available Commands')
+    embed.add_field(name='vpaInspire',value='Get a random inspiring quote!',inline=False)
+    embed.add_field(name='vpaNew',value='Add your own custom encouraging message.\nex: vpaNew You are amazing.',inline=False)
+    embed.add_field(name='vpaDel',value='Delete your custom encouraging message.\nex: vpaDel 1',inline=False)
+    embed.add_field(name='vpaList',value='Lists all your added custom encouraging messages.',inline=False)
+    embed.add_field(name='vpaResponding',value='Turns off/on bot\'s response to sad messages on the server \n ex: vpaResponding false',inline=False)
+   
+    await message.channel.send(embed=embed)
     
         
     
