@@ -99,7 +99,7 @@ async def on_message(message):
       await message.channel.send("Responding is off.")
 players={}
 client1=commands.Bot(command_prefix='?')
-status=['Music!','PUBG!','CSGO!','Apex Legends!','Fortnite!','Minecraft!','nothing|vpaHelp ']
+status=['Music!','PUBG!','CSGO!','Apex Legends!','Fortnite!','Minecraft!','nothing|vpaHelp ','FH4|vpaHelp','COD|vpaHelp','RE7|vpaHelp','Among Us!','Fall Guys!','Phasmophobia!','Blair Witch!','City Racing!','Tekken 7','Destiny 2!','Anime Stranding!','RE2!','Hentai!','GTA:V!','DOTA','Witcher','TFT','Cyberpunk:2077!','Doom Eternal','Rust!','Overwatch','Flight Simulator!']
 
   
 @tasks.loop(seconds=20)
